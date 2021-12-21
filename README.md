@@ -10,3 +10,5 @@ https://fullstackopen.com/en/#course-contents
 Fundamentals of Web apps
 * Part 1
 Introduction to React
+* Part 2
+Communicating with server (**IN PROGRESS..**)
