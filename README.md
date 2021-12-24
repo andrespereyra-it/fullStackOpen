@@ -12,11 +12,14 @@ Fundamentals of Web apps
 Introduction to React
 * Part 2
 Communicating with server (**IN PROGRESS..**)
+* Part 3
+Programming a server with NodeJS and Express (**IN PROGRESS..**)
 
 # Details
 * Part 0 - Fundamentals of Web apps
   1. General info
   2. Fundamentals of Web apps
+
 * Part 1 - Introduction to React
   1. Introduction to React
   2. JavaScript
@@ -29,3 +32,9 @@ Communicating with server (**IN PROGRESS..**)
   3. Getting data from server
   4. Altering data in server
   5. Adding styles to React app
+
+* Part 3 - Programming a server with NodeJS and Express
+  1. Node.js y Express
+  2. Implementación de la aplicación en Internet
+  3. Guardando datos en MongoDB
+  4. Validación y ESLint
