@@ -21,7 +21,7 @@ const App = () => {
 
   const filterSearch = (input) => {
     const searchResult = persons.filter((person) => {
-      return person.name === input;
+      return person.name.toLowerCase() === input.toLowerCase();
     });
     if (searchResult.length !== 0) {
       setSearchedNames(searchResult);
