@@ -1,10 +1,29 @@
-import React from 'react'
+import { useState } from "react";
+import { Finder } from "./components/Finder";
+import { Countries } from "./components/Countries";
+import "./App.css";
 
 const App = () => {
-  return (
-    <div>
-    </div>
-  )
-}
+  const [inputCountry, setInputCountry] = useState("");
+  const [showCountry, setShowCountry] = useState(false);
+  const [countryId, setCountryId] = useState(null);
 
-export default App
+  return (
+        <div className="App">
+          <Finder
+            inputCountry={inputCountry}
+            setInputCountry={setInputCountry}
+            setShowCountry={setShowCountry}
+          />
+          <Countries 
+            inputCountry={inputCountry}
+            showCountry={showCountry}
+            countryId={countryId}
+            setShowCountry={setShowCountry}
+            setCountryId={setCountryId}
+          />
+        </div>
+  );
+};
+
+export default App;

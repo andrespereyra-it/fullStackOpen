@@ -1,12 +1,9 @@
 import { useState, useEffect } from "react";
-import { SingleCountry } from "./SingleCountry";
 
 export const CountriesList = ({
   countriesData,
   inputCountry,
-  showCountry,
   setShowCountry,
-  countryId,
   setCountryId,
 }) => {
   const [filteredCountries, setFilteredCountries] = useState([]);
@@ -45,14 +42,6 @@ export const CountriesList = ({
           <button onClick={() => handleShowClick(country.cca2)}>show</button>
         </ul>
       ))}
-      {showCountry && (
-        <SingleCountry
-          countriesData={countriesData}
-          inputCountry={inputCountry}
-          showCountry={showCountry}
-          countryId={countryId}
-        />
-      )}
     </div>
   );
 };
