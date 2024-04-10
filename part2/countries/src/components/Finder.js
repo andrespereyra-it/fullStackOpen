@@ -6,7 +6,7 @@ export const Finder = ({ inputCountry, setInputCountry, setShowCountry }) => {
   };
 
   return (
-    <form>
+    <form className="countries-form">
       <label>find countries</label>
       <input value={inputCountry} onChange={handleChange}></input>
     </form>

@@ -38,6 +38,7 @@ export const SingleCountry = ({
           <img
             src={filteredCountry.flags.svg}
             alt={filteredCountry.flags.alt}
+            className="flag"
           />
           <h2>Wheather in {filteredCountry.capital[0]}</h2>
           {weatherData.length > 0 && (
