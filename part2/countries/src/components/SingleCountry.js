@@ -8,6 +8,7 @@ export const SingleCountry = ({
   inputCountry,
 }) => {
   const [filteredCountry, setFilteredCountry] = useState(null);
+  const weatherIconsAddress = `https://www.weatherbit.io/static/img/icons`;
 
   useEffect(() => {
     if (countryId) {
@@ -43,10 +44,10 @@ export const SingleCountry = ({
           <h2>Wheather in {filteredCountry.capital[0]}</h2>
           {weatherData.length > 0 && (
             <>
-              <p>temperature {weatherData[0].temp}</p>
+              <p>temperature {weatherData[0].temp} Celcius</p>
               <img
                 alt={weatherData.description}
-                src={`https://www.weatherbit.io/static/img/icons/${weatherData[0].weather.icon}.png`}
+                src={`${weatherIconsAddress}/${weatherData[0].weather.icon}.png`}
               />
               <p>wind {weatherData[0].wind_spd.toFixed(2)} m/s</p>
             </>
