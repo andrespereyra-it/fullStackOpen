@@ -1,83 +1,50 @@
 import React, { useState, useEffect } from "react";
-import axios from "axios";
 import Filter from "./components/Filter";
 import PersonForm from "./components/PersonForm";
 import Persons from "./components/Persons";
+import personsService from "./services/persons";
+import "./App.css";
+import Notification from "./components/Notification";
 
 const App = () => {
   const [persons, setPersons] = useState([]);
   const [searchedNames, setSearchedNames] = useState([]);
-  const [newSearch, setNewSearch] = useState("");
-  const [newName, setNewName] = useState("");
-  const [newNumber, setNewNumber] = useState("");
   const [matchedName, setMatchedName] = useState(false);
+  const [errorMessage, setErrorMessage] = useState(null);
+  const [successMessage, setSuccessMessage] = useState(null);
 
   useEffect(() => {
-    axios.get("http://localhost:3001/persons").then((response) => {
+    personsService.getAll().then((response) => {
       const { data } = response;
       setPersons(data);
     });
   }, []);
 
-  const filterSearch = (input) => {
-    const searchResult = persons.filter((person) => {
-      return person.name.toLowerCase() === input.toLowerCase();
-    });
-    if (searchResult.length !== 0) {
-      setSearchedNames(searchResult);
-      setMatchedName(true);
-    }
-  };
-
-  const handleSearch = (e) => {
-    const inputSearch = e.target.value;
-    filterSearch(inputSearch);
-    setNewSearch(inputSearch);
-    if (inputSearch === "") {
-      setMatchedName(false);
-    }
-  };
-
-  const handleName = (e) => {
-    const inputLetters = e.target.value;
-    setNewName(inputLetters);
-  };
-
-  const handleNumber = (e) => {
-    const inputNumber = e.target.value;
-    setNewNumber(inputNumber);
-  };
-
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    const inputData = {
-      name: newName,
-      number: newNumber,
-    };
-    if (persons.some((person) => person.name === newName)) {
-      alert(`${newName} is already added to phonebook`);
-    } else {
-      setPersons(persons.concat(inputData));
-    }
-  };
-
   return (
-    <div style={{ padding: "10px" }}>
+    <div className="App" style={{ padding: "10px" }}>
       <h2>Phonebook</h2>
-      <Filter handleSearch={handleSearch} newSearch={newSearch} />
+      <Notification
+        errorMessage={errorMessage}
+        successMessage={successMessage}
+      />
+      <Filter
+        persons={persons}
+        setSearchedNames={setSearchedNames}
+        setMatchedName={setMatchedName}
+      />
       <h2>add a new</h2>
       <PersonForm
-        handleName={handleName}
-        handleNumber={handleNumber}
-        handleSubmit={handleSubmit}
-        newName={newName}
-        newNumber={newNumber}
+        persons={persons}
+        setPersons={setPersons}
+        setErrorMessage={setErrorMessage}
+        setSuccessMessage={setSuccessMessage}
       />
       <h2>Numbers</h2>
       <Persons
         matchedName={matchedName}
         searchedNames={searchedNames}
         persons={persons}
+        setPersons={setPersons}
       />
     </div>
   );
