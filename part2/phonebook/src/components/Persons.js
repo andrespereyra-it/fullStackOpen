@@ -1,14 +1,15 @@
-import React from "react";
+import personsService from "../services/persons";
+import PersonDetail from "./PersonDetail";
 
-const PersonDetail = ({ name, number }) => {
-  return (
-    <p>
-      {name} {number}
-    </p>
-  );
-};
+const Persons = ({ matchedName, searchedNames, persons, setPersons }) => {
+  const handleDelete = (id) => {
+    const personById = persons.find(person => person.id === id)
+    if (window.confirm(`Delete ${personById.name}?`)) {
+      personsService.remove(id);
+      setPersons(persons.filter((person) => person.id !== id));
+    }
+  };
 
-const Persons = ({ matchedName, searchedNames, persons }) => {
   return (
     <div>
       {matchedName
@@ -17,6 +18,7 @@ const Persons = ({ matchedName, searchedNames, persons }) => {
               key={searchedName.name}
               name={searchedName.name}
               number={searchedName.number}
+              handleDelete={handleDelete}
             />
           ))
         : persons.map((person) => (
@@ -24,6 +26,8 @@ const Persons = ({ matchedName, searchedNames, persons }) => {
               key={person.name}
               name={person.name}
               number={person.number}
+              id={person.id}
+              handleDelete={handleDelete}
             />
           ))}
     </div>
