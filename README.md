@@ -6,12 +6,12 @@ Learn React, Redux, Node.js, MongoDB, GraphQL and TypeScript in one go! This cou
 https://fullstackopen.com/en/#course-contents
 
 # Done
-* Part 0
+- [x] Part 0
 Fundamentals of Web apps
-* Part 1
+- [x] Part 1
 Introduction to React
-* Part 2
-Communicating with server (**IN PROGRESS..**)
+- [x] Part 2
+Communicating with server
 * Part 3
 Programming a server with NodeJS and Express (**IN PROGRESS..**)
 
