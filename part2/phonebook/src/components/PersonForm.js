@@ -62,7 +62,7 @@ const PersonForm = ({
           setTimeout(() => {
             setSuccessMessage(null);
           }, 5000);
-          setPersons(persons.concat(inputData));
+          setPersons([...persons, res.data]);
           setNewName("");
           setNewNumber("");
         })
