@@ -18,7 +18,7 @@ const App = () => {
       const { data } = response;
       setPersons(data);
     });
-  }, []);
+  }, [setPersons]);
 
   return (
     <div className="App" style={{ padding: "10px" }}>
@@ -36,7 +36,6 @@ const App = () => {
       <PersonForm
         persons={persons}
         setPersons={setPersons}
-        setErrorMessage={setErrorMessage}
         setSuccessMessage={setSuccessMessage}
       />
       <h2>Numbers</h2>
@@ -45,6 +44,7 @@ const App = () => {
         searchedNames={searchedNames}
         persons={persons}
         setPersons={setPersons}
+        setErrorMessage={setErrorMessage}
       />
     </div>
   );
