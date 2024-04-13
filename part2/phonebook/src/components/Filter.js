@@ -14,7 +14,8 @@ const Filter = ({ persons, setSearchedNames, setMatchedName }) => {
 
   const filterSearch = (input) => {
     const searchResult = persons.filter((person) => {
-      return person.name.toLowerCase() === input.toLowerCase();
+      //return person.name.toLowerCase() === input.toLowerCase();
+      return person.name.toLowerCase().includes(input.toLowerCase());
     });
     if (searchResult.length !== 0) {
       setSearchedNames(searchResult);
