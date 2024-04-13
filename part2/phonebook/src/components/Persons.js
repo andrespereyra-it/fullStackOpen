@@ -1,35 +1,57 @@
 import personsService from "../services/persons";
 import PersonDetail from "./PersonDetail";
 
-const Persons = ({ matchedName, searchedNames, persons, setPersons }) => {
+const Persons = ({
+  matchedName,
+  searchedNames,
+  persons,
+  setPersons,
+  setErrorMessage,
+}) => {
   const handleDelete = (id) => {
-    const personById = persons.find(person => person.id === id)
+    const personById = persons.find((person) => person.id === id);
     if (window.confirm(`Delete ${personById.name}?`)) {
-      personsService.remove(id);
-      setPersons(persons.filter((person) => person.id !== id));
+      personsService
+        .remove(id)
+        .then(() => {
+          setPersons(persons.filter((person) => person.id !== id));
+        })
+        .catch((error) => {
+          console.log(error);
+          setErrorMessage(
+            `Information of '${personById.name}' has already been removed from server`
+          );
+          setTimeout(() => {
+            setErrorMessage(null);
+          }, 5000);
+        });
     }
   };
 
   return (
     <div>
       {matchedName
-        ? searchedNames.map((searchedName) => (
-            <PersonDetail
-              key={searchedName.name}
-              name={searchedName.name}
-              number={searchedName.number}
-              handleDelete={handleDelete}
-            />
-          ))
-        : persons.map((person) => (
-            <PersonDetail
-              key={person.name}
-              name={person.name}
-              number={person.number}
-              id={person.id}
-              handleDelete={handleDelete}
-            />
-          ))}
+        ? searchedNames.map((searchedName) => {
+            return (
+              <PersonDetail
+                key={searchedName.id}
+                name={searchedName.name}
+                number={searchedName.number}
+                handleDelete={handleDelete}
+              />
+            );
+          })
+        : persons.map((person) => {
+            return (
+              <PersonDetail
+                key={person.id}
+                name={person.name}
+                number={person.number}
+                id={person.id}
+                handleDelete={handleDelete}
+              />
+            );
+          })}
     </div>
   );
 };

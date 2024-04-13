@@ -4,7 +4,6 @@ import personsService from "../services/persons";
 const PersonForm = ({
   persons,
   setPersons,
-  setErrorMessage,
   setSuccessMessage,
 }) => {
   const [newName, setNewName] = useState("");
@@ -29,15 +28,31 @@ const PersonForm = ({
     const existingContact = persons.find(
       (person) => person.name.toLowerCase() === newName.toLowerCase()
     );
-    console.log(existingContact);
     if (existingContact) {
-      //alert(`${newName} is already added to phonebook`);
       if (
         window.confirm(
           `${newName} is already added to phonebook, replace the old number with the new one?`
         )
       ) {
-        personsService.update(existingContact.id, inputData);
+        personsService
+          .update(existingContact.id, inputData)
+          .then(() => {
+            const updatedPersons = persons.map((person) =>
+              person.id === existingContact.id
+                ? { ...person, number: newNumber }
+                : person
+            );
+            setPersons(updatedPersons);
+            setSuccessMessage(
+              `${existingContact.name}'s number updated successfully`
+            );
+            setTimeout(() => {
+              setSuccessMessage(null);
+            }, 5000);
+          })
+          .catch((error) => {
+            console.log(error);
+          });
       }
     } else {
       personsService
@@ -47,19 +62,13 @@ const PersonForm = ({
           setTimeout(() => {
             setSuccessMessage(null);
           }, 5000);
+          setPersons(persons.concat(inputData));
+          setNewName("");
+          setNewNumber("");
         })
         .catch((error) => {
           console.log(error);
-          setErrorMessage(
-            `Information of '${persons.name}' has already been removed from server`
-          );
-          setTimeout(() => {
-            setErrorMessage(null);
-          }, 5000);
         });
-      setPersons(persons.concat(inputData));
-      setNewName("");
-      setNewNumber("");
     }
   };
 
